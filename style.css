@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@font-face {
+    font-family: 'Manifont Grotesk';
+    src: url(./fonts/manifont-grotesk_book.ttf);
+}
+
+:root {
+    --font-books: 'Roboto Mono', monospace;
+    --font-layout: 'Space Grotesk', monospace; 
+    --dark-gray: #3d3d3d;
+    --bg-color: #f7f6f9;
+    --underline: 2px solid var(--dark-gray);
+    --transition: 0.3s;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: var(--transition);
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+
+/* general */
+
+.hidden {
+    display: none !important;
+}
+
+.btn:hover {
+    cursor: pointer;
+    color: #e99100;
+}
+
+/* header */
+.header {
+    border-bottom: var(--underline);
+    height: 65px;
+}
+
+.expand {
+    height: 105px;
+}
+
+.content { 
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: var(--font-layout);
+    padding:  0 15px;
+    color: var(--dark-gray);
+}
+
+.nav {
+    height: 66px;
+    padding: 25px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 40px;
+}
+
+.add {
+    font-size: 50px;
+}
+
+
+/* form */
+.form {
+    height: 40px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 20px;
+
+}
+
+label{
+    padding-right: 10px;
+
+}
+input[type="text"] {
+    height: 30px;
+    font-family: var(--font-layout);
+    font-size: 20px;
+    background-color: var(--bg-color);
+    border: none;
+    width: 200px;
+}
+
+input[type="text"]:focus {
+ 
+}
+
+
+/* book cover */
+
+.cover {
+    background-color: #f1d3ab;
+    width: 275px;
+    height: 450px;
+    border-radius: 7px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 12px 62.5px 12px;
+
+    box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.26);
+    -webkit-box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.26);
+    -moz-box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.26);
+
+    scale: 0.8;
+    transition: scale 0.25s;
+}
+
+.cover:hover {
+    scale: 0.82;
+}
+
+.cover-art {
+    color: #78519a;
+    margin: 0 auto;
+    width: 150px;
+    height: auto;
+}
+
+.title,
+.author {
+    font-family: var(--font-books);
+    color: #78519a;
+}
+
+.hr {
+    display: inline-block;
+}
+
+.hr::before {
+  content: '';
+  display: block;
+  border-top: 8px solid #78519a;
+  margin-top: 0.5em;
+}
+
+.divider {
+    border: none;
+    border-top: 5px solid #78519a;
+}
+
+.author {
+    margin-top: -7px;
+    font-weight: 400;
+}
