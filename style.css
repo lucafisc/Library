@@ -136,8 +136,7 @@ input[type="text"]:focus {
     height: auto;
 }
 
-.title,
-.author {
+.book-details {
     font-family: var(--font-books);
     color: #78519a;
 }
@@ -149,7 +148,7 @@ input[type="text"]:focus {
 .hr::before {
   content: '';
   display: block;
-  border-top: 8px solid #78519a;
+  border-top: 8px solid;
   margin-top: 0.5em;
 }
 

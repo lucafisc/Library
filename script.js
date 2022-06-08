@@ -1,8 +1,7 @@
 // const fontType = []
 
-// const colors = ["#2f1c3b", "#f4cfff", "#e99100", "#dcd529", "#78519a", "#f15621", "#f1d3ab"]
-
-// const icon = ["align-justify", "bar-chart-2", "box", "circle", "columns", "crosshair", "droplet", "edit-2", "grid", "hash", "heart", "hexagon", "loader", "minus", "more-vertical", "octagon", "plus", "smile", "square", "target", "triangle"]
+const colors = ["#2f1c3b", "#f4cfff", "#e99100", "#dcd529", "#78519a", "#f15621", "#f1d3ab"]
+const icons = ["align-justify", "bar-chart-2", "box", "circle", "columns", "crosshair", "droplet", "edit-2", "grid", "hash", "heart", "hexagon", "loader", "minus", "more-vertical", "octagon", "plus", "smile", "square", "target", "triangle"]
 
 //library
 let myLibrary = [];
@@ -37,8 +36,12 @@ const bookGrid = document.getElementById("book-grid")
 function showBook(newBook) {
     let newCover = document.createElement('div');
     newCover.classList.add("cover");
+    newCover.style.backgroundColor = colors[randomArrayIndex(colors)];
     let bookDetails = document.createElement('div');
     bookDetails.classList.add("book-details");
+    do {
+    bookDetails.style.color = colors[randomArrayIndex(colors)];}
+    while (newCover.style.backgroundColor === bookDetails.style.color);
     let newTitle = document.createElement("h1");
     newTitle.classList.add("title");
     newTitle.textContent = newBook.title;
@@ -48,7 +51,8 @@ function showBook(newBook) {
     newAuthor.textContent = newBook.author;
     let coverArt = document.createElement("i");
     coverArt.classList.add("cover-art");
-    coverArt.setAttribute("data-feather", "circle");
+    coverArt.setAttribute("data-feather", icons[randomArrayIndex(icons)]);
+    coverArt.style.color = bookDetails.style.color;
 
     bookDetails.appendChild(newTitle);
     bookDetails.appendChild(newAuthor);
@@ -58,6 +62,11 @@ function showBook(newBook) {
     bookGrid.insertBefore(newCover, bookGrid.firstElementChild);
     feather.replace();
     
+}
+
+//return random number
+function randomArrayIndex (array) {
+    return Math.floor(Math.random()*array.length);
 }
 
 
