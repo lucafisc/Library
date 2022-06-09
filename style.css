@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 @font-face {
     font-family: 'Manifont Grotesk';
     src: url(./fonts/manifont-grotesk_book.ttf);
@@ -6,7 +7,7 @@
 
 :root {
     --font-books: 'Roboto Mono', monospace;
-    --font-layout: 'Space Grotesk', monospace; 
+    --font-layout: 'Space Grotesk', monospace;
     --dark-gray: #3d3d3d;
     --bg-color: #f7f6f9;
     --underline: 2px solid var(--dark-gray);
@@ -29,12 +30,19 @@ body {
 /* general */
 
 .hidden {
-    display: none !important;
+    max-height: 0 !important;
+    transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
 }
 
 .btn:hover {
     cursor: pointer;
     color: #e99100;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* header */
@@ -47,20 +55,17 @@ body {
     height: 105px;
 }
 
-.content { 
-    max-width: 900px;
+.content {
+    max-width: 1300px;
     margin: 0 auto;
     font-family: var(--font-layout);
-    padding:  0 15px;
+    padding: 0 15px;
     color: var(--dark-gray);
 }
 
 .nav {
     height: 66px;
     padding: 25px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .header-title {
@@ -81,33 +86,88 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
     font-size: 20px;
-
 }
 
-label{
+@media only screen and (max-width: 780px) {
+    .expand {
+        height: 170px;
+    }
+
+    .form {
+        flex-direction: column;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+    }
+
+    #submit {
+        display: inline-block;
+    }
+}
+
+.form-section {
+    display: flex;
+    flex: 1;
+}
+
+label {
     padding-right: 10px;
-
 }
+
 input[type="text"] {
     height: 30px;
     font-family: var(--font-layout);
     font-size: 20px;
     background-color: var(--bg-color);
     border: none;
-    width: 200px;
+    flex: 1;
 }
 
-input[type="text"]:focus {
- 
+
+
+/* grid */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+    grid-template-rows: auto;
+    grid-auto-rows: auto justify-content: start;
+    width: 100%;
+    gap: 0px;
+    max-height: 9999px;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+    overflow: hidden;
+
 }
 
+/* sections */
+.unread,
+.read {
+    border-bottom: var(--underline);
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-color);
+    z-index: 1;
+}
+
+.section-title {
+    font-size: 28px;
+}
+
+
+.btn-rotate {
+    transition: var(--transition);
+    rotate: 90deg;
+}
 
 /* book cover */
 
 .cover {
     background-color: #f1d3ab;
-    width: 275px;
-    height: 450px;
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 11 / 18;
     border-radius: 7px;
 
     margin: 0 auto;
@@ -117,22 +177,22 @@ input[type="text"]:focus {
     justify-content: space-between;
     padding: 30px 12px 62.5px 12px;
 
-    box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.26);
-    -webkit-box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.26);
-    -moz-box-shadow: -1px 2px 6px 0px rgba(0,0,0,0.26);
+    box-shadow: 8px 8px 16px #f0eff2,
+        -8px -8px 16px #fefdff;
 
-    scale: 0.8;
-    transition: scale 0.25s;
+    transform: scale(0.8);
+    transition: transform 0.25s;
+    position: relative;
 }
 
 .cover:hover {
-    scale: 0.82;
+    transform: scale(0.82);
 }
 
 .cover-art {
     color: #78519a;
     margin: 0 auto;
-    width: 150px;
+    width: 65%;
     height: auto;
 }
 
@@ -146,10 +206,10 @@ input[type="text"]:focus {
 }
 
 .hr::before {
-  content: '';
-  display: block;
-  border-top: 8px solid;
-  margin-top: 0.5em;
+    content: '';
+    display: block;
+    border-top: 8px solid;
+    margin-top: 0.5em;
 }
 
 .divider {
@@ -160,4 +220,25 @@ input[type="text"]:focus {
 .author {
     margin-top: -7px;
     font-weight: 400;
+}
+
+.tools {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+}
+
+.tool {
+    box-sizing: content-box;
+    opacity: 0.6;
+    padding: 5px;
+}
+
+.tool:hover {
+    opacity: 1;
+    cursor: pointer
+}
+
+.cover:hover .tools {
+    display: block;
 }

@@ -12,15 +12,15 @@
 </head>
 
 <body>
-    <div class="content">
+    <div id="content" class="content">
         <header class="header">
-            <div class="nav">
+            <div class="nav flex-container">
                 <h1 class="header-title">Library</h1>
                 <i id="plus-toggle" class="btn" data-feather="plus"></i>
                 <i id="minus-toggle" class="btn hidden" data-feather="minus"></i>
 
             </div>
-            <form class="form hidden" action="">
+            <form class="form collapse" action="">
                 <div class="form-section">
                     <label for="title">title:</label>
                     <input id="title" name="title" type="text">
@@ -37,19 +37,36 @@
             </form>
         </header>
 
-    </div>
-
-    <div id="book-grid" class="books-grid">
-        <div class="cover">
-            <div class="book-details">
-                <h1 class="title">Made in Tokyo</h1>
-                <h2 class="author hr">Atelier Bow-Wow</h2>
+        <section class="unread">
+            <div class="flex-container sticky">
+                <h2 class="section-title">Unread</h2>
+                <i id="collapse" class="btn" data-feather="chevron-down"></i>
             </div>
-            <i class="cover-art" data-feather="circle"></i>
-        </div>
+            <div id="book-grid-unread" class="book-grid">
+                <div class="cover">
+                    <div class="book-details">
+                        <h1 class="title">Made in Tokyo</h1>
+                        <h2 class="author hr">Atelier Bow-Wow</h2>
+                    </div>
+                    <i class="cover-art" data-feather="circle"></i>
+                    <div class="tools">
+                        <i id="edit" class="tool" data-feather="edit"></i>
+                        <i id="del" class="tool" data-feather="trash-2"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="unread">
+            <div class="flex-container sticky">
+                <h2 class="section-title">Read</h2>
+                <i id="collapse" class="btn" data-feather="chevron-down"></i>
+            </div>
+            <div id="book-grid-read" class="book-grid">
+            </div>
+        </section>
+
     </div>
-
-
     <script>
         feather.replace()
     </script>
