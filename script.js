@@ -34,6 +34,13 @@ const icons = [
 //library
 let myLibrary = [];
 
+//variables
+let inputTitle;
+let inputAuthor;
+let inputRead;
+let statSelected = false;
+const inputFields = document.querySelectorAll("input");
+
 //book constructor
 class Book {
   constructor(title, author, unread) {
@@ -62,22 +69,54 @@ for (let i=0; i<myLibrary.length; i++)
 showBook(myLibrary[i])}
 }
 
-const inputUnread = document.getElementById("unread");
-const inputRead = document.getElementById("read");
+const stats = document.getElementsByClassName("round-btn");
+for (stat of stats) {
+    stat.addEventListener("click", (e) => {
+       toggleStatus(e.target);
+    })
+}
+
+function toggleStatus(choice) {
+    for (stat of stats) {
+        stat.classList.remove("active")
+    }
+    choice.classList.toggle("active");
+    if (choice.id === "unread") {
+        inputUnread = true;
+    }
+    else {
+        inputUnread = false;
+    }
+    statSelected = true;
+}
+
+//submit book
 const addBtn = document.getElementById("add");
+addBtn.addEventListener("click", () => {
+    inputTitle = document.getElementById("title").value;
+    inputAuthor = document.getElementById("author").value;
+    if (inputTitle && inputAuthor && statSelected){
+        addBookToLibrary();
+        resetInput();
+    }
+})
+
+//reset input
+function resetInput() {
+    for (field of inputFields) {
+        field.value = ""
+    }
+    for (stat of stats) {
+        stat.classList.remove("active")
+    }
+    statSelected = false;
+}
 
 //add to library
 function addBookToLibrary() {
-  let inputTitle = document.getElementById("title").value;
-  let inputAuthor = document.getElementById("author").value;
-  let inputUnread = document.getElementById("unread").checked;
-  if (inputTitle && inputAuthor) {
     let newInput = new Book(inputTitle, inputAuthor, inputUnread);
     myLibrary.push(newInput);
     showBook(myLibrary[myLibrary.length - 1]);
-  } else {
-    // displayError();
-  }
 }
 
 const bookGridUnread = document.getElementById("book-grid-unread");
@@ -210,7 +249,6 @@ for (x=0; x<accSection.length; x++) {
     accSection[x].addEventListener("click", function() {
         this.classList.toggle("collapse");
         let section = this.nextElementSibling;
-        console.log(section)
         if (section.style.maxHeight) {
             section.style.maxHeight = null;
         }
@@ -238,7 +276,6 @@ content.addEventListener("click", function (e) {
           return true; //keeps the book
         }
       });
-      console.table(myLibrary);
       e.target.parentNode.parentNode.remove();
     }
   } else {
