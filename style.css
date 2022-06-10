@@ -135,10 +135,9 @@ input[type="text"] {
     display: inline-flex;
     align-items: center; 
     margin-right: 5px;
-    flex: 0;
-    
+    flex: 0;    
 }
-
+.active,
 .round-btn:hover {
     background-color: var(--highlight-color);
     color: var(--bg-color);
