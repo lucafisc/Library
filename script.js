@@ -58,8 +58,12 @@ function onLoad() {
 myLibrary.push(
 new Book ("Made in Tokyo", "Atelier Bow-Wow", false),
 new Book ("Capitalist Realism", "Mark Fisher", true),
+new Book ("The Posthumous Memoirs of Brás Cubas", "Machado de Assis", false),
 new Book ("Britney Spears: An Unauthorized Biography", "Alix Strauss", true),
+new Book ("The Cloudspotter's Guide", "Gavin Pretor-Pinney", true),
+new Book ("The politics of Design", "Ruben Pater", true),
 new Book ("Drive My Car", "Haruki Murakami", true),
+new Book ("Do Androids Dream of Electric Sheep?", "Philip K. Dick", true),
 new Book ("My Year of Rest and Relaxation", "Otessa Moshfegh", false),
 new Book ("Oryx and Crake", "Margaret Atwood", false)
 )
@@ -317,6 +321,6 @@ content.addEventListener("click", function (e) {
 //hover menu on icons
 //safari button fix
 //crhome < rotate
-
+//sometimes delete and move buttons do not work
 
 document.onload = onLoad()
