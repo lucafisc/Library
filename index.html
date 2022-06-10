@@ -14,13 +14,9 @@
 <body>
     <div id="content" class="content">
         <header class="header">
-            <div class="nav flex-container">
-                <h1 class="header-title">Library</h1>
-                <i id="plus-toggle" class="btn" data-feather="plus"></i>
-                <i id="minus-toggle" class="btn hidden" data-feather="minus"></i>
-            </div>
-            <button id=class="accordion">Library</button>
-            <form class="form" action="">
+            
+            <button id="logo" class="accordion">Library</button>
+            <div class="form">
                 <div class="form-section">
                     <label for="title">title:</label>
                     <input id="title" name="title" type="text">
@@ -29,12 +25,14 @@
                     <label for="author">author:</label>
                     <input id="author" name="author" type="text">
                 </div>
-                <div class="form-section">
-                    <label for="unread">unread?</label>
-                    <input id="unread" name="unread" type="checkbox" value="unread">
+                <div class="form-section no-grow">
+                    <button class="round-btn">unread</button>
+                    <button class="round-btn">read</button>
                 </div>
-                <i id="submit" class="btn" data-feather="check"></i>
-            </form>
+                <div class="form-section">
+                    <button class="check">add</button>
+                </div>
+            </div>
         </header>
 
         <section class="section">

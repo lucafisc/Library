@@ -44,11 +44,10 @@ class Book {
   }
 }
 
-
+//load default books
 function onLoad() {
-// let default = new Book(inputTitle, inputAuthor, inputUnread);
-// myLibrary.push(default)
-// showBook(myLibrary[myLibrary.length - 1]);
+
+//default books
 myLibrary.push(
 new Book ("Made in Tokyo", "Atelier Bow-Wow", false),
 new Book ("Capitalist Realism", "Mark Fisher", true),
@@ -57,6 +56,7 @@ new Book ("Drive My Car", "Haruki Murakami", true),
 new Book ("My Year of Rest and Relaxation", "Otessa Moshfegh", false),
 new Book ("Oryx and Crake", "Margaret Atwood", false)
 )
+
 for (let i=0; i<myLibrary.length; i++)
 {
 showBook(myLibrary[i])}
@@ -196,31 +196,10 @@ function randomArrayIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-//toggle form
-const plusToggle = document.getElementById("plus-toggle");
-const minusToggle = document.getElementById("minus-toggle");
-const submit = document.getElementById("submit");
-const header = document.querySelector("header");
-const form = document.querySelector("form");
 
-plusToggle.addEventListener("click", () => {
-  toggleForm();
-});
-minusToggle.addEventListener("click", () => {
-  toggleForm();
-});
-submit.addEventListener("click", () => {
-  addBookToLibrary();
-});
-
-function toggleForm() {
-  plusToggle.classList.toggle("hidden");
-  minusToggle.classList.toggle("hidden");
-  header.classList.toggle("expand");
-  form.classList.toggle("hidden");
-}
 
 //collapse section button
+let viewport = window.matchMedia("(max-width: 680px)")
 const accSection = document.getElementsByClassName("accordion");
 let x;
 for (x=0; x<accSection.length; x++) {
@@ -232,7 +211,13 @@ for (x=0; x<accSection.length; x++) {
             section.style.maxHeight = null;
         }
         else {
+            // on this case scroll.Height hides part of the form in desktop view
+            if (section.classList.contains("form") && !viewport.matches)  {
+                section.style.maxHeight = "30px"; 
+            }
+            else {
             section.style.maxHeight = section.scrollHeight + "px";
+            }
         }
     });
 }
