@@ -62,6 +62,9 @@ for (let i=0; i<myLibrary.length; i++)
 showBook(myLibrary[i])}
 }
 
+const inputUnread = document.getElementById("unread");
+const inputRead = document.getElementById("read");
+const addBtn = document.getElementById("add");
 
 //add to library
 function addBookToLibrary() {
@@ -69,7 +72,6 @@ function addBookToLibrary() {
   let inputAuthor = document.getElementById("author").value;
   let inputUnread = document.getElementById("unread").checked;
   if (inputTitle && inputAuthor) {
-    toggleForm();
     let newInput = new Book(inputTitle, inputAuthor, inputUnread);
     myLibrary.push(newInput);
     showBook(myLibrary[myLibrary.length - 1]);
@@ -107,11 +109,13 @@ function showBook(newBook) {
   //insert in corresponding section
   if (newBook.unread) {
     bookGridUnread.insertBefore(newCover, bookGridUnread.firstElementChild);
-    bookGridUnread.style.maxHeight = "fit-content";
+    bookGridUnread.style.maxHeight = "fit-content"; //makes section grow to fit to content
+    bookGridUnread.style.maxHeight = bookGridUnread.scrollHeight + "px"; //makes animation work
 
   } else {
     bookGridRead.insertBefore(newCover, bookGridRead.firstElementChild);
     bookGridRead.style.maxHeight = "fit-content";
+    bookGridRead.style.maxHeight = bookGridRead.scrollHeight + "px";
   }
   feather.replace();
 }
@@ -274,6 +278,8 @@ content.addEventListener("click", function (e) {
 //prevent duplicated books
 //grid in mobile
 //hover menu on icons
+//safari button fix
+//crhome < rotate
 
 
 document.onload = onLoad()
