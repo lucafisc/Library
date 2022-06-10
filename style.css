@@ -89,10 +89,7 @@ body {
 }
 
 @media only screen and (max-width: 780px) {
-    .expand {
-        height: 170px;
-    }
-
+   
     .form {
         flex-direction: column;
         align-items: flex-start;
@@ -132,28 +129,50 @@ input[type="text"] {
     grid-auto-rows: auto justify-content: start;
     width: 100%;
     gap: 0px;
-    max-height: 9999px;
-    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
     overflow: hidden;
-
+    transition: all 0.3s ease-out;
+    max-height: 0;
 }
 
 /* sections */
-.unread,
-.read {
+.section {
     border-bottom: var(--underline);
 }
 
-.sticky {
+.accordion {
+    font-size: 28px;
+    font-weight: 600;
+    padding: 15px 0px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    background-color: var(--bg-color);
+    color: var(--dark-gray);
+
     position: sticky;
     top: 0;
-    background-color: var(--bg-color);
     z-index: 1;
 }
 
-.section-title {
-    font-size: 28px;
+.accordion:hover {
+    color:#e99100
 }
+
+.accordion::after {
+    content: '<'; /* Unicode character for "plus" sign (+) */
+    float: right;
+    margin-right: 10px ;
+    transition: all 0.3s ease-out;
+  }
+
+.collapse::after {
+    rotate: -90deg;
+}
+
+
 
 
 .btn-rotate {
