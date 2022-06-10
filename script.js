@@ -7,6 +7,7 @@ const colors = [
   "#f15621",
   "#f1d3ab",
 ];
+
 const icons = [
   "align-justify",
   "bar-chart-2",
@@ -29,7 +30,9 @@ const icons = [
   "square",
   "target",
   "triangle",
-];
+]
+
+
 
 //library
 let myLibrary = [];
@@ -40,6 +43,7 @@ let inputAuthor;
 let inputRead;
 let statSelected = false;
 const inputFields = document.querySelectorAll("input");
+let badCombination;
 
 //book constructor
 class Book {
@@ -175,10 +179,40 @@ function newCoverDiv() {
 function newBookDetailsDiv(newCover) {
     let bookDetails = document.createElement("div");
     bookDetails.classList.add("book-details");
+    console.log(bookDetails)
     do {
+        badCombination = false;
         bookDetails.style.color = colors[randomArrayIndex(colors)];
-    } while (newCover.style.backgroundColor === bookDetails.style.color);
+        checkColorCombination(newCover.style.backgroundColor, bookDetails.style.color)
+    } while (badCombination);
     return bookDetails;
+}
+
+//check for unreadable color combinations
+function checkColorCombination(color1, color2) {
+    if (color1 === color2) {
+        badCombination = true;
+    }
+    else if (color1 === "rgb(244, 207, 255)") {
+        if (color2 === "rgb(241, 211, 171)" || color2 === "rgb(220, 213, 41)") {
+        badCombination = true;
+        }}
+    else if (color1 === "rgb(220, 213, 41)") {
+        if (color2 === "rgb(241, 211, 171)" || color2 === "rgb(244, 207, 255)") {
+         badCombination = true;
+        }
+    }
+    else if (color1 === "rgb(241, 211, 171)") {
+        if (color2 === "rgb(220, 213, 41)" || color2 === "rgb(244, 207, 255)") {
+         badCombination = true;
+        }
+    }
+    else if (color1 === "rgb(241, 86, 33)" && color2 === "rgb(233, 145, 0)") {
+        badCombination = true;
+    }
+    else if (color2 === "rgb(241, 86, 33)" && color1 === "rgb(233, 145, 0)") {
+        badCombination = true;
+    }
 }
 
 //create new title text element
@@ -323,4 +357,4 @@ content.addEventListener("click", function (e) {
 //crhome < rotate
 //sometimes delete and move buttons do not work
 
-document.onload = onLoad()
+document.onload = onLoad();
