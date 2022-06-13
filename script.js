@@ -137,6 +137,7 @@ function resetInput() {
 //add to library
 function addBookToLibrary() {
     let newInput = new Book(inputTitle, inputAuthor, inputUnread);
+    //prevent duplicate entries
     const isDuplicate = myLibrary.find(element => {
       if (element.dataIndex === newInput.dataIndex) {
         return true
@@ -146,6 +147,7 @@ function addBookToLibrary() {
     if (isDuplicate) {
       return
     }
+
     myLibrary.push(newInput);
     showBook(myLibrary[myLibrary.length - 1]);
 }
@@ -164,6 +166,8 @@ function showBook(newBook) {
   let newEdit = newEditBtn(newBook, bookDetails);
   let newDelete = newDeleteBtn(bookDetails);
 
+
+
   //append all new elements
   bookDetails.appendChild(newTitle);
   bookDetails.appendChild(newAuthor);
@@ -172,6 +176,7 @@ function showBook(newBook) {
   tools.appendChild(newDelete);
   tools.appendChild(newEdit);
   newCover.appendChild(tools);
+
 
   //add unique data-index for cover div
   newCover.setAttribute("data-index", `${newBook.title} - ${newBook.author}`); 
@@ -272,25 +277,46 @@ function newCoverArt(bookDetails) {
 
 //create delete btn
 function newDeleteBtn(bookDetails) {
-    let newDelete = document.createElement("i");
-    newDelete.classList.add("tool");
-    newDelete.setAttribute("data-feather", "trash-2");
-    newDelete.setAttribute("id", "del");
-    newDelete.style.color = bookDetails.style.color;
+    let toolTip = document.createElement("span");
+    toolTip.classList.add("tooltiptext");
+    toolTip.textContent = "delete";
+
+    let button = document.createElement("i");
+    button.classList.add("tool");
+    button.setAttribute("data-feather", "trash-2");
+    button.setAttribute("id", "del");
+    button.style.color = bookDetails.style.color;
+
+    let newDelete = document.createElement("div");
+    newDelete.classList.add("tooltip");
+    newDelete.appendChild(button);
+    newDelete.appendChild(toolTip);
     return newDelete;
 }
 
 //create edit btn
 function newEditBtn(newBook, bookDetails) {
-    let newEdit = document.createElement("i");
-    newEdit.classList.add("tool");
+    let toolTip = document.createElement("span");
+    toolTip.classList.add("tooltiptext");
+
+    let button = document.createElement("i");
+    button.classList.add("tool");
     if (newBook.unread) {
-        newEdit.setAttribute("data-feather", "circle");
+      button.setAttribute("data-feather", "circle");
+      toolTip.textContent = "mark read";
     } else {
-        newEdit.setAttribute("data-feather", "check-circle");
+      button.setAttribute("data-feather", "check-circle");
+      toolTip.textContent = "mark unread";
     }
-    newEdit.setAttribute("id", "unread-toggle");
-    newEdit.style.color = bookDetails.style.color;
+    button.setAttribute("id", "unread-toggle");
+    button.style.color = bookDetails.style.color;
+
+   
+  
+    let newEdit = document.createElement("div");
+    newEdit.classList.add("tooltip");
+    newEdit.appendChild(button);
+    newEdit.appendChild(toolTip);
     return newEdit;
 }
 
@@ -344,13 +370,13 @@ const content = document.getElementById("content");
 content.addEventListener("click", function (e) {
   if (e.target.id === "del") {
     if (confirm("Remove this book?")) {
-      let key = e.target.parentNode.parentNode.getAttribute("data-index");
+      let key = e.target.parentNode.parentNode.parentNode.getAttribute("data-index");
       myLibrary = myLibrary.filter(function (book) {
         if (book.dataIndex !== key) {
           return true; //keeps the book
         }
       });
-      e.target.parentNode.parentNode.remove();
+      e.target.parentNode.parentNode.parentNode.remove();
     }
   } else {
     return;
@@ -360,33 +386,30 @@ content.addEventListener("click", function (e) {
 // toggle read <-> unread
 content.addEventListener("click", function (e) {
   if (e.target.id === "unread-toggle") {
-    let key = e.target.parentNode.parentNode.getAttribute("data-index");
+    let key = e.target.parentNode.parentNode.parentNode.getAttribute("data-index");
     let i = myLibrary.map((book) => book.dataIndex).indexOf(key);
-
     switch (myLibrary[i].unread) {
       case true:
-        bookGridRead.appendChild(e.target.parentNode.parentNode);
+        bookGridRead.appendChild(e.target.parentNode.parentNode.parentNode);
         bookGridRead.style.maxHeight = "fit-content";
         myLibrary[i].unread = false;
         break;
       case false:
-        bookGridUnread.appendChild(e.target.parentNode.parentNode);
+        bookGridUnread.appendChild(e.target.parentNode.parentNode.parentNode);
         bookGridUnread.style.maxHeight = "fit-content";
         myLibrary[i].unread = true;
         break;
     }
-    
     //replace edit button
     let newEdit = newEditBtn(myLibrary[i], e.target.parentNode.firstChild);
-    e.target.parentNode.appendChild(newEdit);
-    e.target.remove();
+    e.target.parentNode.parentNode.appendChild(newEdit);
+    e.target.parentNode.remove();
     feather.replace();
   }
 });
 
 
 //todo
-//prevent duplicated books
 //grid in mobile
 //hover menu on icons
 //safari button fix
