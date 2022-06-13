@@ -72,11 +72,13 @@ new Book ("My Year of Rest and Relaxation", "Otessa Moshfegh", false),
 new Book ("Oryx and Crake", "Margaret Atwood", false)
 )
 
+//load default books
 for (let i=0; i<myLibrary.length; i++)
 {
 showBook(myLibrary[i])}
 }
 
+//toggle book status
 const stats = document.getElementsByClassName("round-btn");
 for (stat of stats) {
     stat.addEventListener("click", (e) => {
@@ -100,13 +102,24 @@ function toggleStatus(choice) {
 
 //submit book
 const addBtn = document.getElementById("add");
-addBtn.addEventListener("click", () => {
-    inputTitle = document.getElementById("title").value;
-    inputAuthor = document.getElementById("author").value;
-    if (inputTitle && inputAuthor && statSelected){
-        addBookToLibrary();
-        resetInput();
-    }
+addBtn.addEventListener("click", submitBook)
+
+function submitBook() {
+  inputTitle = document.getElementById("title").value;
+  inputAuthor = document.getElementById("author").value;
+  if (inputTitle && inputAuthor && statSelected){
+      addBookToLibrary();
+      resetInput();
+}
+}
+
+document.addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    submitBook();
+  }
+  else {
+    collapseSection(accSection[0], e);
+  }
 })
 
 //reset input
@@ -118,6 +131,7 @@ function resetInput() {
         stat.classList.remove("active")
     }
     statSelected = false;
+    document.getElementById("title").focus();
 }
 
 //add to library
@@ -179,7 +193,6 @@ function newCoverDiv() {
 function newBookDetailsDiv(newCover) {
     let bookDetails = document.createElement("div");
     bookDetails.classList.add("book-details");
-    console.log(bookDetails)
     do {
         badCombination = false;
         bookDetails.style.color = colors[randomArrayIndex(colors)];
@@ -283,24 +296,38 @@ function randomArrayIndex(array) {
 let viewport = window.matchMedia("(max-width: 680px)")
 const accSection = document.getElementsByClassName("accordion");
 let x;
-for (x=0; x<accSection.length; x++) {
-    accSection[x].addEventListener("click", function() {
-        this.classList.toggle("collapse");
-        let section = this.nextElementSibling;
-        if (section.style.maxHeight) {
-            section.style.maxHeight = null;
-        }
-        else {
-            // on this case scroll.Height hides part of the form in desktop view
-            if (section.classList.contains("form") && !viewport.matches)  {
-                section.style.maxHeight = "30px"; 
-            }
-            else {
-            section.style.maxHeight = section.scrollHeight + "px";
-            }
-        }
+for (let header of accSection) {
+    header.addEventListener("click", function(e) {
+        collapseSection(header, e);
     });
 }
+function collapseSection(header, e) {
+  //when key is pressed return if form is already expanded
+  if (e.type === "keypress" && header.classList.contains("collapse")){
+    return
+  }
+  
+  header.classList.toggle("collapse");
+  let section = header.nextElementSibling;
+  if (section.style.maxHeight) {
+    section.style.maxHeight = null;
+  }
+  else {
+    // on  case scroll.Height hides part of the form in desktop view
+    if (section.classList.contains("form") && !viewport.matches) {
+      section.style.maxHeight = "30px";
+    }
+    else {
+      section.style.maxHeight = section.scrollHeight + "px";
+    }
+    //if section is form focus on input
+    if (section.classList.contains("form")) {
+      document.getElementById("title").focus();
+    }
+  }
+
+}
+
 
 
 //delete book
@@ -358,3 +385,4 @@ content.addEventListener("click", function (e) {
 //sometimes delete and move buttons do not work
 
 document.onload = onLoad();
+
