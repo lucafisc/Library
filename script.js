@@ -137,6 +137,15 @@ function resetInput() {
 //add to library
 function addBookToLibrary() {
     let newInput = new Book(inputTitle, inputAuthor, inputUnread);
+    const isDuplicate = myLibrary.find(element => {
+      if (element.dataIndex === newInput.dataIndex) {
+        return true
+      }
+     return false
+    })
+    if (isDuplicate) {
+      return
+    }
     myLibrary.push(newInput);
     showBook(myLibrary[myLibrary.length - 1]);
 }
