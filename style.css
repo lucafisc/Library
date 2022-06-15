@@ -62,7 +62,7 @@ body {
 
 .collapse#logo::after {
     content: '-';
-    rotate: 0deg;
+    transform:rotate(0deg);
 }
 
 
@@ -188,7 +188,7 @@ flex: 1;
   }
 
 .collapse::after {
-    rotate: -90deg;
+    transform:rotate(-90deg);
 }
 
 
@@ -196,7 +196,7 @@ flex: 1;
 
 .btn-rotate {
     transition: var(--transition);
-    rotate: 90deg;
+    transform:rotate(90deg);
 }
 
 /* book cover */

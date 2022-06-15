@@ -415,6 +415,8 @@ content.addEventListener("click", function (e) {
 //safari button fix
 //crhome < rotate
 //sometimes delete and move buttons do not work
+//reset display when moving books
+
 
 document.onload = onLoad();
 
